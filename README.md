@@ -1,147 +1,159 @@
-# Three Tier Application using Docker Compose
+# MERN Student Management Application
 
-## Overview
-
-This project is a basic three-tier application built using:
-
-* Frontend: React
-* Backend: Node.js (Express)
-* Database: MongoDB
-
-The application is containerized using Docker and managed with Docker Compose. It demonstrates container networking, volumes for data persistence, and multi-service architecture.
+A containerized full-stack application built using the MERN stack to collect and manage student data. This project demonstrates backend API development, frontend integration, and multi-container deployment using Docker Compose.
 
 ---
 
-## Project Structure
+## Description
 
-```
-three-tier-app/
-│
-├── frontend/
-│   ├── Dockerfile
-│   └── React application
-│
-├── backend/
-│   ├── Dockerfile
-│   ├── server.js
-│   └── package.json
-│
-├── docker-compose.yml
-```
+This application allows users to submit and retrieve student details. It is designed as a simple CRUD-based system with a focus on containerization and service orchestration.
+
+Each student record includes:
+
+* Name
+* Age
+* Locality
+* Course
+* Academic Year
+* College Name (default: SS College of Engineering)
 
 ---
 
-## Architecture
+## Tech Stack
 
-User → Frontend → Backend → MongoDB
+Frontend:
 
-* Frontend communicates with backend via HTTP
-* Backend connects to MongoDB using service name as host
-* Docker Compose creates a default network for communication
+* React
+* Axios
 
----
-
-## Technologies Used
+Backend:
 
 * Node.js
 * Express
-* React
+
+Database:
+
 * MongoDB
+
+DevOps / Tools:
+
 * Docker
 * Docker Compose
 
 ---
 
-## Setup and Run
+## Architecture
 
-### 1. Clone the repository
+The application follows a 3-tier architecture:
 
-```
-git clone <your-repo-url>
-cd three-tier-app
-```
+1. Frontend (React) – User interface
+2. Backend (Node.js/Express) – API layer
+3. Database (MongoDB) – Data storage
 
-### 2. Run the application
-
-```
-docker compose up -d --build
-```
+All services run in separate containers and communicate over a custom Docker network.
 
 ---
 
-## Access the Application
+## Project Structure
+
+mern-student-app/
+│
+├── backend/
+│   ├── models/
+│   ├── routes/
+│   ├── server.js
+│   ├── package.json
+│   └── Dockerfile
+│
+├── frontend/
+│   ├── src/
+│   ├── package.json
+│   └── Dockerfile
+│
+└── docker-compose.yml
+
+---
+
+## Setup and Installation
+
+### Using Docker (Recommended)
+
+1. Clone the repository
+
+git clone <your-repo-url>
+cd mern-student-app
+
+2. Build and start the application
+
+docker compose up --build
+
+3. Run in detached mode (optional)
+
+docker compose up -d --build
+
+---
+
+## Application Access
 
 * Frontend: http://localhost:3000
-* Backend: http://localhost:5000
+* Backend API: http://localhost:5000/students
 
 ---
 
 ## API Endpoints
 
-### Add Data
+POST /students/add
+Creates a new student record
 
-```
-POST /add
-Content-Type: application/json
-
-{
-  "name": "example"
-}
-```
-
-### Get Data
-
-```
-GET /items
-```
+GET /students
+Fetches all student records
 
 ---
 
-## Docker Details
+## Docker Configuration
 
-### Services
+Services defined in docker-compose:
 
 * frontend
 * backend
 * mongo
 
-### Volume
-
-* mongo-data: used to persist MongoDB data
-
-### Network
-
-* Default network created by Docker Compose
-* Services communicate using service names (e.g., mongo)
+A custom bridge network is used to enable communication between services.
+The backend connects to MongoDB using the service name `mongo` as the hostname.
 
 ---
 
-## Useful Commands
+## Key Highlights
 
-### View running containers
-
-```
-docker ps
-```
-
-### View logs
-
-```
-docker compose logs -f
-```
-
-### Stop containers
-
-```
-docker compose down
-```
+* Full-stack MERN implementation
+* RESTful API design
+* Dockerized frontend and backend
+* Multi-container orchestration using Docker Compose
+* Service-to-service communication using Docker networking
 
 ---
 
-## Notes
+## Limitations
 
-* MongoDB data is persisted using Docker volumes
-* No manual network configuration is required
-* Ensure ports 3000 and 5000 are free before running
+* No authentication or authorization
+* No data persistence (MongoDB volume not configured)
+* Basic UI without validation
+
+---
+
+## Future Enhancements
+
+* Add authentication (JWT-based login system)
+* Implement input validation
+* Configure MongoDB volumes for persistence
+* Add NGINX reverse proxy
+* Deploy on AWS (EC2 or ECS)
+* Integrate CI/CD pipeline
+
+---
+
+## Author
+
+Sivasaran
 
 ---
